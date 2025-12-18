@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amusementpark.controllers.AboutController">
+    <children>
+        <Label fx:id="fioLabel" text="ФИО: " />
+        <Label fx:id="groupLabel" text="Группа: " />
+        <Label fx:id="contactsLabel" text="Контакты: " />
+        <TextArea fx:id="experienceText" editable="false" wrapText="true" prefHeight="200" />
+        <Label fx:id="datesLabel" text="Даты: " />
+    </children>
+</VBox>

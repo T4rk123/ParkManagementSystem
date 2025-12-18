@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amusementpark.controllers.MainController" style="-fx-background-color: linear-gradient(to bottom, #e3f2fd, #f5f5f5);"> <!-- Лёгкий градиент для тематики парка -->
+    <top>
+        <HBox alignment="CENTER_RIGHT" spacing="15.0" style="-fx-padding: 10; -fx-background-color: linear-gradient(to right, #4fc3f7, #29b6f6); -fx-background-radius: 0 0 10 10;"> <!-- Симметричный top с синим градиентом -->
+            <children>
+                <MenuButton fx:id="userMenuButton" text="Пользователь" style="-fx-background-color: white; -fx-text-fill: #0277bd; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 8 12;" /> <!-- Закруглённый, практичный -->
+                <Button text="Об авторе" onAction="#handleAbout" style="-fx-background-color: white; -fx-text-fill: #0277bd; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 8 12;" />
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE" style="-fx-background-color: transparent; -fx-tab-pane-background: #f5f5f5; -fx-tab-min-width: 120;">
+            <tabs>
+                <Tab text="Аттракционы" style="-fx-background-color: #e3f2fd; -fx-background-radius: 5;">
+                    <content>
+                        <VBox spacing="10.0" style="-fx-padding: 15;">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                    <children>
+                                        <Label text="Поиск: " style="-fx-font-weight: bold; -fx-text-fill: #0277bd;" />
+                                        <TextField fx:id="searchField" onAction="#handleSearch" promptText="По имени" prefWidth="200" />
+                                        <Button text="Поиск" onAction="#handleSearch" style="-fx-background-color: #4fc3f7; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 15;" />
+                                    </children>
+                                </HBox>
+                                <TableView fx:id="tableView" prefWidth="800">
+                                    <columns>
+                                        <TableColumn fx:id="idColumn" text="ID" prefWidth="50" sortable="true" />
+                                        <TableColumn fx:id="nameColumn" text="Название" prefWidth="150" sortable="true" />
+                                        <TableColumn fx:id="descColumn" text="Описание" prefWidth="200" sortable="true" />
+                                        <TableColumn fx:id="priceColumn" text="Цена" prefWidth="80" sortable="true" />
+                                        <TableColumn fx:id="waitColumn" text="Время ожидания" prefWidth="100" sortable="true" />
+                                        <TableColumn fx:id="capColumn" text="Вместимость" prefWidth="100" sortable="true" />
+                                    </columns>
+                                </TableView>
+                                <HBox alignment="CENTER" spacing="10.0">
+                                    <children>
+                                        <Button fx:id="addButton" text="Добавить" onAction="#handleAdd" style="-fx-background-color: #2e7d32; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 8 15;" />
+                                        <Button fx:id="editButton" text="Редактировать" onAction="#handleEdit" style="-fx-background-color: #ff9800; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 8 15;" />
+                                        <Button fx:id="deleteButton" text="Удалить" onAction="#handleDelete" style="-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 8 15;" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="Статистика" style="-fx-background-color: #e8f5e8; -fx-background-radius: 5;">
+                    <content>
+                        <VBox spacing="20.0" style="-fx-padding: 20;">
+                            <children>
+
+                                <GridPane hgap="40.0" vgap="10.0" alignment="CENTER">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label fx:id="userCountLabel" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: linear-gradient(to right, #3498db, #2980b9); -fx-background-radius: 5; -fx-padding: 5;" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                        <Label fx:id="avgWaitLabel" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: linear-gradient(to right, #3498db, #2980b9); -fx-background-radius: 5; -fx-padding: 5;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    </children>
+                                </GridPane>
+
+                                <HBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #f8f9fa; -fx-background-radius: 8; -fx-padding: 10;">
+                                    <children>
+                                        <Label text="Сортировка по времени ожидания:" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #34495e;" />
+                                        <ComboBox fx:id="sortStatsCombo" />
+                                        <Button text="Сортировать" onAction="#handleSortStats" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;" />
+                                    </children>
+                                </HBox>
+
+                                <Region HBox.hgrow="ALWAYS" />
+                                <BarChart fx:id="statsChart" prefWidth="450" prefHeight="400" animated="true">
+                                    <xAxis>
+                                        <CategoryAxis label="Аттракционы" tickLabelRotation="-45" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Время ожидания (мин)" />
+                                    </yAxis>
+                                </BarChart>
+                                <Region HBox.hgrow="ALWAYS" />
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+</BorderPane>
