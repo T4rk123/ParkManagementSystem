@@ -60,13 +60,6 @@ public class AttractionRepository {
         }
     }
 
-    public Attraction findById(Long id) {
-        try (Session session = HibernateConfig.getSessionFactory().openSession()) {
-            return session.get(Attraction.class, id);
-        } catch (Exception e) {
-            throw new RuntimeException("Ошибка получения аттракциона: " + e.getMessage());
-        }
-    }
 
     public Double averageWaitingTime() {
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
